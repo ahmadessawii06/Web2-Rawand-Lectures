@@ -1,375 +1,394 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <title>WebTwoLectures - Dr. Rawand</title>
 
-    <style>
-      /* ----- RESET & BASE (pink theme background canvas) ----- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <title>WebTwoLectures - Dr. Rawand</title>
 
-      body {
-        font-family:
-          "Inter",
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-        line-height: 1.5;
-        color: #2e1b2c; /* deep plum for text */
-        min-height: 100vh;
-        position: relative;
-        background-color: #1e121b; /* dark fallback, matches pink undertone */
-      }
+  <style>
+    /* ----- RESET & BASE (pink theme background canvas) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      /* canvas for moving code background — now pinkish rain */
-      #bg-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        opacity: 0.3;
-      }
+    body {
+      font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+      line-height: 1.5;
+      color: #2e1b2c;
+      /* deep plum for text */
+      min-height: 100vh;
+      position: relative;
+      background-color: #1e121b;
+      /* dark fallback, matches pink undertone */
+    }
 
+    /* canvas for moving code background — now pinkish rain */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ----- HEADER RECTANGLE (soft pink glass) ----- */
+    .header {
+      background: rgba(255, 240, 245, 0.88);
+      /* pinkish-white */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 30px rgba(128, 45, 92, 0.25);
+      border: 1px solid rgba(255, 200, 220, 0.5);
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-top span:first-child {
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      background: linear-gradient(145deg, #802d5c, #d53f8c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-top span:last-child {
+      background: rgba(255, 220, 235, 0.8);
+      backdrop-filter: blur(4px);
+      padding: 0.35rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #802d5c;
+      border: 1px solid rgba(255, 200, 220, 0.7);
+    }
+
+    .header-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem 2rem;
+      padding-top: 0.5rem;
+      border-top: 2px dashed rgba(200, 100, 140, 0.3);
+    }
+
+    .header-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1rem;
+      color: #4a2c3d;
+    }
+
+    .header-bottom a {
+      color: #b1306e;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      background: rgba(255, 220, 240, 0.9);
+      border-radius: 30px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .header-bottom a:hover {
+      background: white;
+      border-color: #d53f8c;
+      box-shadow: 0 2px 10px rgba(213, 63, 140, 0.3);
+    }
+
+    #lecture-count {
+      background: #d53f8c;
+      color: white;
+      font-weight: 600;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      margin-left: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    /* ----- LECTURE CARDS GLASS (pink edition) ----- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: rgba(255, 240, 250, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 32px;
+      padding: 2rem 1.5rem 1.8rem 1.5rem;
+      box-shadow: 0 20px 35px -8px rgba(128, 45, 92, 0.3);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255, 200, 220, 0.7);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 40px -12px rgba(180, 60, 120, 0.4);
+      background: rgba(255, 235, 245, 0.96);
+      border-color: rgba(255, 160, 200, 0.9);
+    }
+
+    /* circular lecture number — hot pink */
+    .lecture-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #d53f8c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      box-shadow: 0 6px 14px rgba(180, 60, 130, 0.4);
+      border: 2px solid rgba(255, 220, 240, 0.7);
+    }
+
+    .lecture-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card .title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a2c3d;
+      margin-bottom: 0;
+      border-left: 4px solid #d53f8c;
+      padding-left: 0.75rem;
+    }
+
+    .card .date {
+      font-size: 0.95rem;
+      color: #802d5c;
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .card .date::before {
+      content: "📅";
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .card .btn {
+      background: #d53f8c;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.15s;
+      margin-top: auto;
+      border: 1px solid #d53f8c;
+      box-shadow: 0 4px 12px rgba(200, 70, 130, 0.4);
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    .card .btn:hover {
+      background: #b1306e;
+      border-color: #b1306e;
+      box-shadow: 0 8px 16px rgba(180, 60, 120, 0.5);
+    }
+
+    .card .btn:active {
+      background: #802d5c;
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 640px) {
       .container {
-        max-width: 1200px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-        position: relative;
-        z-index: 2;
+        padding: 1rem 0.8rem;
       }
 
-      /* ----- HEADER RECTANGLE (soft pink glass) ----- */
       .header {
-        background: rgba(255, 240, 245, 0.88); /* pinkish-white */
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border-radius: 24px;
-        padding: 1.5rem 2rem;
-        margin-bottom: 2.5rem;
-        box-shadow: 0 8px 30px rgba(128, 45, 92, 0.25);
-        border: 1px solid rgba(255, 200, 220, 0.5);
+        padding: 1.2rem 1.2rem;
       }
 
       .header-top {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem 1.5rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .header-top span:first-child {
-        font-weight: 600;
-        font-size: 1.3rem;
-        letter-spacing: -0.01em;
-        background: linear-gradient(145deg, #802d5c, #d53f8c);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .header-top span:last-child {
-        background: rgba(255, 220, 235, 0.8);
-        backdrop-filter: blur(4px);
-        padding: 0.35rem 1rem;
-        border-radius: 40px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #802d5c;
-        border: 1px solid rgba(255, 200, 220, 0.7);
+        flex-direction: column;
+        align-items: start;
       }
 
       .header-bottom {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.75rem 2rem;
-        padding-top: 0.5rem;
-        border-top: 2px dashed rgba(200, 100, 140, 0.3);
-      }
-
-      .header-bottom span {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 1rem;
-        color: #4a2c3d;
-      }
-
-      .header-bottom a {
-        color: #b1306e;
-        font-weight: 500;
-        padding: 0.2rem 0.6rem;
-        background: rgba(255, 220, 240, 0.9);
-        border-radius: 30px;
-        transition: all 0.2s;
-        border: 1px solid transparent;
-        text-decoration: none;
-      }
-
-      .header-bottom a:hover {
-        background: white;
-        border-color: #d53f8c;
-        box-shadow: 0 2px 10px rgba(213, 63, 140, 0.3);
-      }
-
-      #lecture-count {
-        background: #d53f8c;
-        color: white;
-        font-weight: 600;
-        padding: 0.2rem 0.7rem;
-        border-radius: 40px;
-        margin-left: 0.3rem;
-        font-size: 0.9rem;
-      }
-
-      /* ----- LECTURE CARDS GLASS (pink edition) ----- */
-      .cards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.8rem;
-      }
-
-      .card {
-        background: rgba(255, 240, 250, 0.92);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-radius: 32px;
-        padding: 2rem 1.5rem 1.8rem 1.5rem;
-        box-shadow: 0 20px 35px -8px rgba(128, 45, 92, 0.3);
-        transition: all 0.25s ease;
-        border: 1px solid rgba(255, 200, 220, 0.7);
-        display: flex;
         flex-direction: column;
+        align-items: start;
       }
+    }
+  </style>
+</head>
 
-      .card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 28px 40px -12px rgba(180, 60, 120, 0.4);
-        background: rgba(255, 235, 245, 0.96);
-        border-color: rgba(255, 160, 200, 0.9);
-      }
+<body>
+  <!-- canvas background with pink "code rain" -->
+  <canvas id="bg-canvas"></canvas>
 
-      /* circular lecture number — hot pink */
-      .lecture-circle {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: #d53f8c;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.5rem;
-        box-shadow: 0 6px 14px rgba(180, 60, 130, 0.4);
-        border: 2px solid rgba(255, 220, 240, 0.7);
-      }
+  <div class="container">
+    <!-- HEADER RECTANGLE with updated names -->
+    <header class="header">
+      <div class="header-top">
+        <span>WebTwoLectures – Dr. Rawand</span>
+        <span>Made By
+          <a href="https://github.com/ahmadessawii06">Ahmad Essawii</a>
+        </span>
+      </div>
+      <div class="header-bottom">
+        <span>📘 Lectures: <span id="lecture-count">0</span></span>
+        <span>📎 Slides:
+          <a href="https://drive.google.com/drive/folders/1KdKfyUR7hJprAD56ATLqlORua1RzhzbW?usp=sharing"
+            target="_blank">Rawand Slides</a>
 
-      .lecture-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 0.75rem;
-      }
+          <a href="https://drive.google.com/drive/folders/1quszihAcYKZ5-n0-5D8EEg4EP2cSE-Vb?usp=sharing"
+            target="_blank">Baraa Slides</a>
+        </span>
+        <span>🗓️ Second Semester 2026</span>
+      </div>
+    </header>
 
-      .card .title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #4a2c3d;
-        margin-bottom: 0;
-        border-left: 4px solid #d53f8c;
-        padding-left: 0.75rem;
-      }
+    <!-- DYNAMIC CARD GRID (populated by javascript) -->
+    <section class="cards-grid" id="cards-grid"></section>
+  </div>
 
-      .card .date {
-        font-size: 0.95rem;
-        color: #802d5c;
-        margin-bottom: 1.6rem;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
+  <script>
+    (function () {
+      // ---------- LECTURE DATA : original 4 + 5 new pink recordings ----------
+      const lectures = [
+        ,
+        ,
+        // --- existing lectures (keep exact) ---
+        // --- NEW recordings provided (pink addition) ---
+        {
+          number: 1,
+          title: "Lecture 1",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/WUndk46u0jTxm2FBOZbIhDkpkgk0be9Fabo-D1nwTyjF_Udatc4mlRGlkBfNpM6o.9y7uDT_GQZa-XN0G",
+        },
+        {
+          number: 2,
+          title: "Lecture 2",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/wJl3p_skIWnaaW9t-H4Xw9e8fC-W4t2WsCEIln-XCwWEkmrJGJovqdTpErsxXhHW.wl7SD-Go1n0H9JCy",
+        },
+        {
+          number: 3,
+          title: "Lecture 3",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/play/c6EWSjdrSnAHM34cQmlpsoqPqmOT-aTniIImV728v5YkHF2bQ7b2n_etTc9aZ5nm7qjJ8E4mpYFdpDGg.jgEe9yvXsjqYYT-K?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FS4Li9DKqVmeRC9_fAouBDF7S5X8P8mwcGL1s2Bdi-gDCW7yqh32uHFuZvsh_0tK4.jI-j53VTah7oJT-D",
+        },
+        {
+          number: 4,
+          title: "Lecture 4",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/play/zGbsUFdf9Khlb45E3XqPsa6HKz5ObK5dJoGWBD3h-HSZMM6iG5AsYgsKciPQRKe1SuqOgJY8M37LBl0.XsSMRJ49ErDbb7LM?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FDPRsVoZVPoe0A-Xd5NRaPYDFocADIO0Lin2lwgVMK0SPBubcxwdSn4JrbBecTDa0.oNLoKuXDrS39GDgy",
+        },
 
-      .card .date::before {
-        content: "📅";
-        font-size: 1rem;
-        opacity: 0.8;
-      }
+        {
+          number: 5,
+          title: "Lecture 5",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/play/QRovuULvLlEwe0XA7ODzpx25laMI16ZgJhiuOg5kxS-Vlz02NjOVmMZz_C6B-af141gpss_pxF4wOfid.h_iCJ3WrxRZKodWI?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FRuVJhtUK8mNMtKSxo9RXm01vJXYixxemFXGhRhXXjR2t0H97rADphXJUUua4Hm-v.hjw8nKNlN5WiSBPJ",
+        },
 
-      .card .btn {
-        background: #d53f8c;
-        border: none;
-        color: white;
-        font-weight: 600;
-        font-size: 1rem;
-        padding: 0.85rem 1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: 0.15s;
-        margin-top: auto;
-        border: 1px solid #d53f8c;
-        box-shadow: 0 4px 12px rgba(200, 70, 130, 0.4);
-        letter-spacing: 0.3px;
-        text-align: center;
-      }
-
-      .card .btn:hover {
-        background: #b1306e;
-        border-color: #b1306e;
-        box-shadow: 0 8px 16px rgba(180, 60, 120, 0.5);
-      }
-
-      .card .btn:active {
-        background: #802d5c;
-        transform: scale(0.98);
-      }
-
-      @media (max-width: 640px) {
-        .container {
-          padding: 1rem 0.8rem;
-        }
-        .header {
-          padding: 1.2rem 1.2rem;
-        }
-        .header-top {
-          flex-direction: column;
-          align-items: start;
-        }
-        .header-bottom {
-          flex-direction: column;
-          align-items: start;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- canvas background with pink "code rain" -->
-    <canvas id="bg-canvas"></canvas>
-
-    <div class="container">
-      <!-- HEADER RECTANGLE with updated names -->
-      <header class="header">
-        <div class="header-top">
-          <span>WebTwoLectures – Dr. Rawand</span>
-          <span
-            >Made By
-            <a href="https://github.com/ahmadessawii06">Ahmad Essawii</a>
-          </span>
-        </div>
-        <div class="header-bottom">
-          <span>📘 Lectures: <span id="lecture-count">0</span></span>
-          <span
-            >📎 Slides:
-            <a
-              href="https://drive.google.com/drive/folders/1KdKfyUR7hJprAD56ATLqlORua1RzhzbW?usp=sharing"
-              target="_blank"
-              >Rawand Slides</a
-            >
-
-            <a
-              href="https://drive.google.com/drive/folders/1quszihAcYKZ5-n0-5D8EEg4EP2cSE-Vb?usp=sharing"
-              target="_blank"
-              >Baraa Slides</a
-            >
-          </span>
-          <span>🗓️ Second Semester 2026</span>
-        </div>
-      </header>
-
-      <!-- DYNAMIC CARD GRID (populated by javascript) -->
-      <section class="cards-grid" id="cards-grid"></section>
-    </div>
-
-    <script>
-      (function () {
-        // ---------- LECTURE DATA : original 4 + 5 new pink recordings ----------
-        const lectures = [
-          ,
-          ,
-          // --- existing lectures (keep exact) ---
-          // --- NEW recordings provided (pink addition) ---
-          {
-            number: 1,
-            title: "Lecture 1",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/share/WUndk46u0jTxm2FBOZbIhDkpkgk0be9Fabo-D1nwTyjF_Udatc4mlRGlkBfNpM6o.9y7uDT_GQZa-XN0G",
-          },
-          {
-            number: 2,
-            title: "Lecture 2",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/share/wJl3p_skIWnaaW9t-H4Xw9e8fC-W4t2WsCEIln-XCwWEkmrJGJovqdTpErsxXhHW.wl7SD-Go1n0H9JCy",
-          },
-          {
-            number: 3,
-            title: "Lecture 3",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/play/c6EWSjdrSnAHM34cQmlpsoqPqmOT-aTniIImV728v5YkHF2bQ7b2n_etTc9aZ5nm7qjJ8E4mpYFdpDGg.jgEe9yvXsjqYYT-K?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FS4Li9DKqVmeRC9_fAouBDF7S5X8P8mwcGL1s2Bdi-gDCW7yqh32uHFuZvsh_0tK4.jI-j53VTah7oJT-D",
-          },
-          {
-            number: 4,
-            title: "Lecture 4",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/play/zGbsUFdf9Khlb45E3XqPsa6HKz5ObK5dJoGWBD3h-HSZMM6iG5AsYgsKciPQRKe1SuqOgJY8M37LBl0.XsSMRJ49ErDbb7LM?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FDPRsVoZVPoe0A-Xd5NRaPYDFocADIO0Lin2lwgVMK0SPBubcxwdSn4JrbBecTDa0.oNLoKuXDrS39GDgy",
-          },
-
-          {
-            number: 5,
-            title: "Lecture 5",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/play/QRovuULvLlEwe0XA7ODzpx25laMI16ZgJhiuOg5kxS-Vlz02NjOVmMZz_C6B-af141gpss_pxF4wOfid.h_iCJ3WrxRZKodWI?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FRuVJhtUK8mNMtKSxo9RXm01vJXYixxemFXGhRhXXjR2t0H97rADphXJUUua4Hm-v.hjw8nKNlN5WiSBPJ",
-          },
-
-          {
-            number: 6,
-            title: "Lecture 6",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/play/TT0lBx7nU8003jqYBalabzliVEiymlAjHBZZD2HSltVJTbBroBeXmUmep1Sd4wdEX4O4tEje5D5Sk4jO.ymxb3ZzRd4Ym2tAC?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2Fr56P0RpYBW1RVJjUAzj6V64TxnQLOpuGEs2TAm0XzF1Qeho4f8PW_H0sphIOBwEi.8cXtWaJeJKvw-cDz",
-          },
-          {
-            number: 7,
-            title: "Lecture 7",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/share/6hdbl-rPWBom9HuLMWyVGRjIVq12d2ddgqBFliK996GB57X0gTabi_oiwZhaKNIU.6xAjStoEBH7JAPh-",
-          },
-          {
-               number: 8,
-            title: "Lecture 8",
-            date: "March 2026",
-            link: "https://najah.zoom.us/rec/share/ozrp9cr6IT8nsVF8NxdtV2-NJGbTs2OCYWAL--rEczdM56mLJOQ3uNStBb48tqgG.mR9GhGCmjR6LMYpu",
+        {
+          number: 6,
+          title: "Lecture 6",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/play/TT0lBx7nU8003jqYBalabzliVEiymlAjHBZZD2HSltVJTbBroBeXmUmep1Sd4wdEX4O4tEje5D5Sk4jO.ymxb3ZzRd4Ym2tAC?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2Fr56P0RpYBW1RVJjUAzj6V64TxnQLOpuGEs2TAm0XzF1Qeho4f8PW_H0sphIOBwEi.8cXtWaJeJKvw-cDz",
+        },
+        {
+          number: 7,
+          title: "Lecture 7",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/6hdbl-rPWBom9HuLMWyVGRjIVq12d2ddgqBFliK996GB57X0gTabi_oiwZhaKNIU.6xAjStoEBH7JAPh-",
+        },
+        {
+          number: 8,
+          title: "Lecture 8",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/ozrp9cr6IT8nsVF8NxdtV2-NJGbTs2OCYWAL--rEczdM56mLJOQ3uNStBb48tqgG.mR9GhGCmjR6LMYpu",
 
 
-          },
-        ];
+        },
 
-        // ---------- RENDER CARDS WITH PINK CIRCLES & LINKS ----------
-        function renderLectureCards() {
-          const grid = document.getElementById("cards-grid");
-          if (!grid) return;
 
-          grid.innerHTML = "";
 
-          lectures.forEach((lect) => {
-            const card = document.createElement("div");
-            card.className = "card";
+        {
+          number: 9,
+          title: "Lecture 9",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/OVeg8PK-A6QUC3IcaJaQPotxr8a-iIZx5SZJcjg0JQuwVKoRnoHykqDbm_bMCz1b.nn6OGoFI9Tb3qyUh",
 
-            card.innerHTML = `
+
+        },
+        {
+          number: 10,
+          title: "Lecture 10",
+          date: "March 2026",
+          link: "https://najah.zoom.us/rec/share/bOcmWxd5TN6CKLvRRT0r-o03rQ8t11FMq6dsU4lOm6SGTfKYnaDx4DaTLQkV0Yfj.s0wxe0ULNdkTUK1p",
+
+
+        },
+      ];
+
+      // ---------- RENDER CARDS WITH PINK CIRCLES & LINKS ----------
+      function renderLectureCards() {
+        const grid = document.getElementById("cards-grid");
+        if (!grid) return;
+
+        grid.innerHTML = "";
+
+        lectures.forEach((lect) => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          card.innerHTML = `
             <div class="lecture-header">
               <div class="lecture-circle">${lect.number}</div>
               <p class="title">${lect.title}</p>
@@ -378,85 +397,86 @@
             <button class="btn" data-link="${lect.link.replace(/"/g, "&quot;")}">🎬 Watch recording</button>
           `;
 
-            const button = card.querySelector(".btn");
-            button.addEventListener("click", (e) => {
-              e.preventDefault();
-              const link = button.getAttribute("data-link");
-              if (link) {
-                window.open(link, "_blank", "noopener,noreferrer");
-              } else {
-                alert("Recording link not available.");
-              }
-            });
-
-            grid.appendChild(card);
+          const button = card.querySelector(".btn");
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const link = button.getAttribute("data-link");
+            if (link) {
+              window.open(link, "_blank", "noopener,noreferrer");
+            } else {
+              alert("Recording link not available.");
+            }
           });
 
-          document.getElementById("lecture-count").textContent =
-            lectures.length;
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", renderLectureCards);
-        } else {
-          renderLectureCards();
-        }
-
-        // ---------- BACKGROUND "CODE RAIN" — now PINK! ----------
-        const canvas = document.getElementById("bg-canvas");
-        const ctx = canvas.getContext("2d");
-
-        let width, height;
-        let columns = [];
-        const fontSize = 18;
-        const chars =
-          "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]<>/\\|=+-_*&^%$#@!~";
-
-        function initCanvas() {
-          width = window.innerWidth;
-          height = window.innerHeight;
-          canvas.width = width;
-          canvas.height = height;
-
-          const colCount = Math.ceil(width / fontSize);
-          columns = [];
-          for (let i = 0; i < colCount; i++) {
-            columns[i] = Math.floor(Math.random() * -height);
-          }
-        }
-
-        function drawRain() {
-          ctx.fillStyle = "rgba(30, 10, 20, 0.07)"; // very dark with hint of plum
-          ctx.fillRect(0, 0, width, height);
-
-          // PINK characters!
-          ctx.fillStyle = "#ffa6c9"; // soft pink
-          ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
-          ctx.textAlign = "center";
-
-          for (let i = 0; i < columns.length; i++) {
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            const x = i * fontSize + fontSize / 2;
-            const y = columns[i];
-
-            ctx.fillText(char, x, y);
-
-            if (y > height + fontSize) {
-              columns[i] = -fontSize * Math.random() * 10;
-            } else {
-              columns[i] += fontSize * 0.5;
-            }
-          }
-          requestAnimationFrame(drawRain);
-        }
-
-        window.addEventListener("resize", () => {
-          initCanvas();
+          grid.appendChild(card);
         });
 
+        document.getElementById("lecture-count").textContent =
+          lectures.length;
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", renderLectureCards);
+      } else {
+        renderLectureCards();
+      }
+
+      // ---------- BACKGROUND "CODE RAIN" — now PINK! ----------
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+
+      let width, height;
+      let columns = [];
+      const fontSize = 18;
+      const chars =
+        "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]<>/\\|=+-_*&^%$#@!~";
+
+      function initCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        const colCount = Math.ceil(width / fontSize);
+        columns = [];
+        for (let i = 0; i < colCount; i++) {
+          columns[i] = Math.floor(Math.random() * -height);
+        }
+      }
+
+      function drawRain() {
+        ctx.fillStyle = "rgba(30, 10, 20, 0.07)"; // very dark with hint of plum
+        ctx.fillRect(0, 0, width, height);
+
+        // PINK characters!
+        ctx.fillStyle = "#ffa6c9"; // soft pink
+        ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+        ctx.textAlign = "center";
+
+        for (let i = 0; i < columns.length; i++) {
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          const x = i * fontSize + fontSize / 2;
+          const y = columns[i];
+
+          ctx.fillText(char, x, y);
+
+          if (y > height + fontSize) {
+            columns[i] = -fontSize * Math.random() * 10;
+          } else {
+            columns[i] += fontSize * 0.5;
+          }
+        }
+        requestAnimationFrame(drawRain);
+      }
+
+      window.addEventListener("resize", () => {
         initCanvas();
-        drawRain();
-      })();
-    </script>
-  </body>
+      });
+
+      initCanvas();
+      drawRain();
+    })();
+  </script>
+</body>
+
 </html>
