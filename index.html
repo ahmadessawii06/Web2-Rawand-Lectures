@@ -298,12 +298,8 @@
 
   <script>
     (function () {
-      // ---------- LECTURE DATA : original 4 + 5 new pink recordings ----------
+      // ---------- LECTURE DATA ----------
       const lectures = [
-        ,
-        ,
-        // --- existing lectures (keep exact) ---
-        // --- NEW recordings provided (pink addition) ---
         {
           number: 1,
           title: "Lecture 1",
@@ -353,27 +349,132 @@
           title: "Lecture 8",
           date: "March 2026",
           link: "https://najah.zoom.us/rec/share/ozrp9cr6IT8nsVF8NxdtV2-NJGbTs2OCYWAL--rEczdM56mLJOQ3uNStBb48tqgG.mR9GhGCmjR6LMYpu",
-
-
         },
-
-
-
         {
           number: 9,
           title: "Lecture 9",
           date: "March 2026",
           link: "https://najah.zoom.us/rec/share/OVeg8PK-A6QUC3IcaJaQPotxr8a-iIZx5SZJcjg0JQuwVKoRnoHykqDbm_bMCz1b.nn6OGoFI9Tb3qyUh",
-
-
         },
         {
           number: 10,
           title: "Lecture 10",
           date: "March 2026",
           link: "https://najah.zoom.us/rec/share/bOcmWxd5TN6CKLvRRT0r-o03rQ8t11FMq6dsU4lOm6SGTfKYnaDx4DaTLQkV0Yfj.s0wxe0ULNdkTUK1p",
-
-
+        },
+        {
+          number: 11,
+          title: "Lecture 11",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/play/oMpix0hAXhFvd1NJGE8rohzrxxAUL2kcKDdQ4EQV8MUd6e52l3G-MxOBsj6sCgkv0UyqhkdRxExiQuSK.3Mv21Gd90ILmcmHc?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=&canPlayFromShare=true&from=share_recording_detail&continueMode=true&oldStyle=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FWUndk46u0jTxm2FBOZbIhDkpkgk0be9Fabo-D1nwTyjF_Udatc4mlRGlkBfNpM6o.9y7uDT_GQZa-XN0G",
+        },
+        {
+          number: 12,
+          title: "Lecture 12",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/wJl3p_skIWnaaW9t-H4Xw9e8fC-W4t2WsCEIln-XCwWEkmrJGJovqdTpErsxXhHW.wl7SD-Go1n0H9JCy",
+        },
+        {
+          number: 13,
+          title: "Lecture 13",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/play/c6EWSjdrSnAHM34cQmlpsoqPqmOT-aTniIImV728v5YkHF2bQ7b2n_etTc9aZ5nm7qjJ8E4mpYFdpDGg.jgEe9yvXsjqYYT-K?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fnajah.zoom.us%2Frec%2Fshare%2FS4Li9DKqVmeRC9_fAouBDF7S5X8P8mwcGL1s2Bdi-gDCW7yqh32uHFuZvsh_0tK4.jI-j53VTah7oJT-D",
+        },
+        {
+          number: 14,
+          title: "Lecture 14",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/DPRsVoZVPoe0A-Xd5NRaPYDFocADIO0Lin2lwgVMK0SPBubcxwdSn4JrbBecTDa0.oNLoKuXDrS39GDgy",
+        },
+        {
+          number: 15,
+          title: "Lecture 15",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/RuVJhtUK8mNMtKSxo9RXm01vJXYixxemFXGhRhXXjR2t0H97rADphXJUUua4Hm-v.hjw8nKNlN5WiSBPJ",
+        },
+        {
+          number: 16,
+          title: "Lecture 16",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/r56P0RpYBW1RVJjUAzj6V64TxnQLOpuGEs2TAm0XzF1Qeho4f8PW_H0sphIOBwEi.8cXtWaJeJKvw-cDz",
+        },
+        {
+          number: 17,
+          title: "Lecture 17",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/6hdbl-rPWBom9HuLMWyVGRjIVq12d2ddgqBFliK996GB57X0gTabi_oiwZhaKNIU.6xAjStoEBH7JAPh-",
+        },
+        {
+          number: 18,
+          title: "Lecture 18",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/ozrp9cr6IT8nsVF8NxdtV2-NJGbTs2OCYWAL--rEczdM56mLJOQ3uNStBb48tqgG.mR9GhGCmjR6LMYpu",
+        },
+        {
+          number: 19,
+          title: "Lecture 19",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/OVeg8PK-A6QUC3IcaJaQPotxr8a-iIZx5SZJcjg0JQuwVKoRnoHykqDbm_bMCz1b.nn6OGoFI9Tb3qyUh",
+        },
+        {
+          number: 20,
+          title: "Lecture 20",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/bOcmWxd5TN6CKLvRRT0r-o03rQ8t11FMq6dsU4lOm6SGTfKYnaDx4DaTLQkV0Yfj.s0wxe0ULNdkTUK1p",
+        },
+        {
+          number: 21,
+          title: "Lecture 21",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/x6j2TO0jV8SNnmVvxHS5q9crWRQVsjPeYiz9YVSD4tVe60J5SylcsjrfL5mdHcKf.ZoYe2rJN2lEQTjiZ",
+        },
+        {
+          number: 22,
+          title: "Lecture 22",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/zrhJ_waF0mE_ffI_TO83Cj6RRz71GYRIdpxLxROI2lheUk7Dv51a5i2juqb7_RA.ZQfHCViP7cqooRz_",
+        },
+        {
+          number: 23,
+          title: "Lecture 23",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/MMDCuqr9Q-ugtWgXQCu2fJQIVtXjG3e2nXOzBtIS3xGl6T9dED8WmwyyGUNHuzmB.zC4f2QD1doSWsS3g",
+        },
+        {
+          number: 24,
+          title: "Lecture 24",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/LiRKd9dkPhbMfAHluRrT2QpDiY-78i9fIYre5RCY1aXR90LQ0qp1E4Iul2oZ2Oar.lT32zy__dizVNkx3",
+        },
+        {
+          number: 25,
+          title: "Lecture 25",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/Htxg4TKL3RtIIzAxjxcPf4h3JSqTC0jYVhbBWib4FrtUA-3ClwiXkUl_QzfJIWFW.5UjYFhJl4hPeYgB2",
+        },
+        {
+          number: 26,
+          title: "Lecture 26",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/dTZDoV_9KkUU5orV1SKTZgL6VCRZXDS6uMOb9Af6k3e-qZTL1ZykOYdwmHU_xDht.90aTq8UaDLr3AmvJ",
+        },
+        {
+          number: 27,
+          title: "Lecture 27",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/p7avw1881XpESN27zNa0oP5-VNF5au9q1hiHOY_ichtRlK_tlRz6NY2ouoQhkCY4.XiVQUPikdD1AYWXk",
+        },
+        {
+          number: 28,
+          title: "Lecture 28",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/0ffGRYbHKogQRMjfr_n0ERcrZy4SBOaU_0o60dyuFhcD936GnM3776EeAC-Be_Ec.TQH2R4ydLwMPGnjO",
+        },
+        {
+          number: 29,
+          title: "Lecture 29",
+          date: "Second Semester 2026",
+          link: "https://najah.zoom.us/rec/share/xP9S5JOVv_VhoCL4Q6lNCvTC9CmKsXgM8elSfz6Lf8weYlAotOTfgddSntQ6IhB-.CWxLjEqZqpqGATaE",
         },
       ];
 
